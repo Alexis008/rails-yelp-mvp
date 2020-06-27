@@ -1,20 +1,8 @@
 class Restaurant < ApplicationRecord
+  has_many :reviews
 
-  def index
-    @restaurant = Restaurant.all
-  end
+  validates :name, presence: true
+  validates :address, presence: true
+  validates :category, presence: true, inclusion: { in: ["chinese", "italian", "japanese", "french", "belgian"] }
 
-  def new
-    @restaurant = Restaurant.new
-  end
-
-  def create
-    @restaurant = Restaurant.new(restaurant_params)
-
-    if @restaurant.save
-      redirect_to @restaurant, notice: 'Restaurant was successfully created'
-    else
-      render :new
-    end
-  end
 end
